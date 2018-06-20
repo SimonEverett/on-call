@@ -1,0 +1,6 @@
+UnsetEnv REQUEST_SCHEME
+SetEnv REQUEST_SCHEME https
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d [OR]
+RewriteRule ^(.*)$ index.php/$1 [L]
