@@ -1,14 +1,12 @@
 <?php
 
-$domain_name = "BEMROSE\\";
+$domain_name = "Domain\\";
 
 // SET UP MYSQL CONNECTION
 $dsn = 'mysql:dbname=' . $_SERVER["MYSQL_DBNAME"] . ';host=' . $_SERVER["MYSQL_HOST"];
 
 //initialize the connection to the database
 $conn = new PDO($dsn, $_SERVER["MYSQL_USERNAME"], $_SERVER["MYSQL_PASSWORD"]);
-
-
 
 /*
 Username Sync settings
@@ -26,19 +24,17 @@ Year 12: 2004jbloggs
 Year 13: 10jbloggs
 */
 // 2009jbloggs 
-			if ( $argv['2'] ==  7 || $argv['2'] == 8 || $argv['2'] == 12 )
+	if ( $argv['2'] ==  7 || $argv['2'] == 8 || $argv['2'] == 12 )
 //                    YEAR --- ^^^				
-			{
+	{
 //-- MASK USERNAMES Start WITH A NUMBER  severett02 = (\A[^0-9][^0-9])
-				$regex = '(\A[0-9][0-9][0-9][0-9])';
-			}
-			elseif ( $argv['2'] ==  9 || $argv['2'] == 10 || $argv['2'] == 11 || $argv['2'] == 13)
-			{
+		$regex = '(\A[0-9][0-9][0-9][0-9])';
+	}
+	elseif ( $argv['2'] ==  9 || $argv['2'] == 10 || $argv['2'] == 11 || $argv['2'] == 13)
+	{
 //-- MASK USERNAMES ENDING WITH A NUMBER  severett02 = (\A[^0-9][^0-9])
-				$regex = '(\A[0-9][0-9])';
-			}
-
-
+		$regex = '(\A[0-9][0-9])';
+	}
 
 	$ROOMS[] = "-- Select your room --";
 /*
@@ -89,9 +85,16 @@ for ($i = 1; $i <= 3; $i++)
 	$ROOMS[] = "East Turret";
 	$ROOMS[] = "Boys Changing Room";
 	$ROOMS[] = "Girls Changing Room";
-
 	
-	$BehaviourType = array( '1' => 'Rude to staff', '2' => 'Shouting out', '3' => 'Refusing to follow instructions', '4' => 'Refusing to sit where asked', '5' => 'Refusing to empty mouth', '6' => 'Late to lesson' , '7' => 'Disrupting others' );	
+	$BehaviourType = array( 
+		'1' => 'Rude to staff', 
+		'2' => 'Shouting out', 
+		'3' => 'Refusing to follow instructions', 
+		'4' => 'Refusing to sit where asked', 
+		'5' => 'Refusing to empty mouth', 
+		'6' => 'Late to lesson' , 
+		'7' => 'Disrupting others' 
+	);	
 	
 
 /*
@@ -104,19 +107,13 @@ $YEARS[] = array("Y12", "ou=Y12,ou=East,dc=MyDomain,dc=com");
 */
 
 
-
-
 $fetched_user_array = NULL;
 
 $user = str_replace( $domain_name , "", $_SERVER['LOGON_USER'] ) ;
 
-// echo "Username = " . $user . "Domain name = " . $domain_name;
-// exit();
-
 // $user = "bigbrother";
 $fullname = "-- Awaiting sync --";
 
-//-- JUST CHECKING THAT WE HAVE GOT THIS COURSE IN DB..
 $sqlSelect = ("SELECT * FROM `users` WHERE `user_name` = :username");
 $sth = $conn->prepare($sqlSelect);
 $sth->execute( array( ':username' => $user ) );
@@ -130,8 +127,7 @@ foreach ($sth->fetchAll() as $row)
 // echo count( $fetched_user_array );
 if ( count( $fetched_user_array ) < 1 )
 {
-//-- WE NEED TO INCER THIS USER INTO THE DB.
-
+	//-- WE NEED TO INCER THIS USER INTO THE DB.
 	$sqlSelect = ("INSERT INTO `users` (`fullname`, `user_name`, `dashboad` ) VALUES ( :fullname, :username, '0' ); ");
 	$sth = $conn->prepare($sqlSelect);
 	$sth->execute( array( ':username' => $user , ':fullname' => $fullname ) );
@@ -145,8 +141,6 @@ if ( count( $fetched_user_array ) < 1 )
 	{
 		$fetched_user_array[] = $row;
 	}
-
-			
 }elseif ( count( $fetched_user_array ) > 1 ){
 // SOMETHING HAS GONE WRONG WE HAVE MORE THAN ONE USER WITH THE SAME USERNAME IN THE DB
 	echo 'ERROR MORE THAN ONE USER WITH THIS USERNAME IN THE DB [' .$user . '] <br>';
@@ -155,10 +149,7 @@ if ( count( $fetched_user_array ) < 1 )
 	exit();
 }
 
-// echo "<pre>";
-
-//print_r ( $fetched_user_array["0"]["user_name"] );
-
+// Loading SLT users.
 $slt_users = array_map('str_getcsv', file('slt_users.txt'));
 
 foreach ( $slt_users["0"] as $key => $value) 
@@ -168,13 +159,5 @@ foreach ( $slt_users["0"] as $key => $value)
 		$fetched_user_array["0"]["slt"] = true;
 	}
 }
-
-
-
-
-
-
-
-
 
 ?>
