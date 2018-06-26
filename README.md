@@ -2,6 +2,12 @@
 
 Work in progress..
 
+# To do
+
++ Add compatibility for Apache and IIS auth.
++ Add mysql into the config docker file 
++ Build JSON API for eletrion front end 
+
 # Building the image.
 
 docker build -t simoneverett/on-call .
@@ -16,7 +22,6 @@ Looks like the -v dosent work under win7 :-(
 # stop
 
 sudo docker stop on-call-primany
-
 
 # remove
 

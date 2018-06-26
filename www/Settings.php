@@ -141,6 +141,7 @@ if ( count( $fetched_user_array ) < 1 )
 	{
 		$fetched_user_array[] = $row;
 	}
+	
 }elseif ( count( $fetched_user_array ) > 1 ){
 // SOMETHING HAS GONE WRONG WE HAVE MORE THAN ONE USER WITH THE SAME USERNAME IN THE DB
 	echo 'ERROR MORE THAN ONE USER WITH THIS USERNAME IN THE DB [' .$user . '] <br>';
