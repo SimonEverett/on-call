@@ -1,24 +1,24 @@
 <?php
 
 // ini_set("display_errors", 1);
-require 'libs/Smarty.class.php';
-
-
-require_once("settings.php");
+require_once('libs/Smarty.class.php');
+require_once('settings.php');
 
 $smarty = new Smarty;
 // AlLOWS ARRAYS IN CONFIG FILE
-$smarty->config_overwrite=false;
+$smarty->config_overwrite = false;
 //$smarty->debugging = true;
 $smarty->caching = false;
 //$smarty->cache_lifetime = 120;
 
-/* LOL BREAKS ON WINDOWS IT GIVES ME A/MINE RAMDON IP6 ADDRESS
+// LOL BREAKS ON WINDOWS IT GIVES ME A/MINE RAMDON IP6 ADDRESS
 if ( isset ( $_SERVER['REMOTE_HOST'] ) )
 	$smarty->assign("userhost", $_SERVER['REMOTE_HOST'] );
 else
-*/
-	$smarty->assign("userhost", "http://vm-oncall" );
+	$smarty->assign("userhost", $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] );
+
+
+//	$smarty->assign("userhost", "http://vm-oncall" );
 //	$smarty->assign("userhost", "http://82.5.112.74" );
 
 
@@ -408,7 +408,7 @@ ORDER BY `alert`.`timestamp` ASC
 					
 					
 					$sth = $conn->prepare($sqlSelect);
-					$sth->execute( array( ':LoggedInUserID' => $fetched_user_array[0][id] ) );
+					$sth->execute( array( ':LoggedInUserID' => $fetched_user_array[0]['id'] ) );
 
 					foreach ($sth->fetchAll() as $row)
 					{
@@ -909,7 +909,7 @@ if (isset( $Load) )
 //		if (file_exists ( "templates\\" . $Load ))
 //		if ( file_exists ( $_SERVER['CONTEXT_DOCUMENT_ROOT'] . $Load ) )
 
-if ( file_exists ( $_SERVER['CONTEXT_DOCUMENT_ROOT'] . 'templates' .  '/' . $Load ) )
+if ( file_exists ( $_SERVER['CONTEXT_DOCUMENT_ROOT'] . '/templates' .  '/' . $Load ) )
 			$smarty->display($Load);
 		else{
 			echo 'Internal Error, Seek support. <br>Template file missing.' . $_SERVER['CONTEXT_DOCUMENT_ROOT'] . 'templates' .  $_SERVER ['REQUEST_URI']	 . $Load;

@@ -1,5 +1,12 @@
 UnsetEnv REQUEST_SCHEME
 SetEnv REQUEST_SCHEME https
+SetEnv MYSQL_DBNAME oncall
+SetEnv MYSQL_HOST 127.0.0.1
+SetEnv MYSQL_USERNAME root
+SetEnv MYSQL_PASSWORD
+
+SetEnv LOGON_USER s.everett
+
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d [OR]

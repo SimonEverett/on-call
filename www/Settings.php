@@ -24,6 +24,8 @@ Year 12: 2004jbloggs
 Year 13: 10jbloggs
 */
 // 2009jbloggs 
+if ( isset($argv) )
+{
 	if ( $argv['2'] ==  7 || $argv['2'] == 8 || $argv['2'] == 12 )
 //                    YEAR --- ^^^				
 	{
@@ -35,7 +37,7 @@ Year 13: 10jbloggs
 //-- MASK USERNAMES ENDING WITH A NUMBER  severett02 = (\A[^0-9][^0-9])
 		$regex = '(\A[0-9][0-9])';
 	}
-
+}
 	$ROOMS[] = "-- Select your room --";
 /*
  *
