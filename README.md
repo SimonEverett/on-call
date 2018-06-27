@@ -1,12 +1,13 @@
-# on-call
+# 0.1: on-call
 
-Work in progress..
++ Static html front end accept "New alerts" json 
++ Work in progress..
 
 # To do
 
 + Add compatibility for Apache and IIS auth.
 + Add mysql into the config docker file 
-+ Build JSON API for eletrion front end 
++ Build JSON API for eletrion frontend 
 
 # Building the image.
 
